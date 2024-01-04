@@ -59,6 +59,9 @@ export default function SignIn() {
       setPasswordError('')
     }
 
+    //cor do botão sign up para cor de sucesso
+    const [buttonColor, setButtonColor] = useState('primary')
+
     //Login 
     async function handleSubmit(event){
       event.preventDefault()
@@ -148,12 +151,7 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Grid container>

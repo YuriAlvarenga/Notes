@@ -11,7 +11,6 @@ export default function TopBar(){
                     Notes List
                 </Typography>
                 <Button color="inherit">Logout</Button> 
-                <Button color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
 
