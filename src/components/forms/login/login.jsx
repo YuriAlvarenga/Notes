@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -12,8 +12,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useNavigate } from "react-router-dom"
-import axios from 'axios'
-
+import { AuthContext } from '../../../context/authContext'
 
 const defaultTheme = createTheme()
 
@@ -23,12 +22,12 @@ export default function SignIn() {
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
-    const [emailNotFound, setEmailNotFound] = useState('')
-    const [passwordNotFound, setPasswordNotFound] = useState('')
+   
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
     const navigate = useNavigate()
+    const { Login, emailNotFound, passwordNotFound } = useContext(AuthContext) // recebe as variáveis de auth em context
 
 
     //navigate para signup
@@ -69,34 +68,7 @@ export default function SignIn() {
       frontendValidation()
     
       // Se chegou aqui, os campos foram preenchidos corretamente
-      try {
-        const response = await axios.post('http://localhost:8000/login', {
-          email,
-          password
-        })
-
-        if (response.status === 200){
-          navigate('/')
-        }
-      }catch (error) {
-        if (error.response) {
-        // O servidor respondeu com um código de status diferente de 2xx
-          console.error('Detalhes da resposta:', error.response.data)
-          console.error('Código de status HTTP:', error.response.status)
-        }
-        if (error.response.status === 404) {
-          // Se o status for 404, significa que o email não foi encontrado
-          setEmailNotFound('Email não cadastrado')
-        }else{
-          setEmailNotFound('')
-        }
-        if (error.response.status === 401) {
-          // Se o status for 401, significa que a senha é incorreta
-          setPasswordNotFound('Senha incorreta')
-        }else{
-          setPasswordNotFound('')
-        }
-      }
+      Login(email, password)
         
     }
 
@@ -156,12 +128,12 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" sx={{color:'#005b8f'}}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Typography onClick={handleSignUp} sx={{color:'blue', cursor:'pointer'}} variant="body2">
+                <Typography onClick={handleSignUp} sx={{color:'#005b8f', cursor:'pointer'}} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Typography>
               </Grid>

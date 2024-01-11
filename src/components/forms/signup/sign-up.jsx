@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, {useContext, useState} from 'react'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -10,6 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from '../../../context/authContext'
 
 
 export default function SignUp() {
@@ -31,7 +31,7 @@ export default function SignUp() {
 
     const navigate = useNavigate()
 
-
+    const { SignUp, emailFounded } = useContext(AuthContext)
 
     //navigate para /login
     const handleSignIn = () => {
@@ -77,26 +77,7 @@ export default function SignUp() {
         frontendValidation()
       
         // Se chegou aqui, os campos foram preenchidos corretamente
-        try {
-          const response = await axios.post('http://localhost:8000/signup', {
-            name,
-            email,
-            password
-          })
-         
-          if (response.status === 201){
-            navigate('/login')
-          }
-        }catch (error) {
-          if (error.response) {
-          // O servidor respondeu com um código de status diferente de 2xx
-            console.error('Detalhes da resposta:', error.response.data)
-            console.error('Código de status HTTP:', error.response.status)
-          }
-          if(error.response.status === 400){
-            setEmailError('Email já cadastrado')
-          }
-        }
+        SignUp(name, email, password)
           
       }
       
@@ -140,8 +121,8 @@ export default function SignUp() {
                                 autoComplete="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                error={!!emailError}
-                                helperText={emailError}
+                                error={!!(emailError || emailFounded)}
+                                helperText={emailError || emailFounded}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -163,7 +144,7 @@ export default function SignUp() {
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Typography onClick={handleSignIn} sx={{color:'blue', cursor:'pointer'}} variant="body2">
+                            <Typography onClick={handleSignIn} sx={{color:'#005b8f', cursor:'pointer'}} variant="body2">
                                 Already have an account? Sign in
                             </Typography>
                         </Grid>

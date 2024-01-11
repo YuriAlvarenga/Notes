@@ -9,18 +9,17 @@ export default function Sidebar(){
     return(
         <Box sx={{ overflow: 'auto' }}>
         <List>
-            {['Minhas notas', 'Notas compartilhadas', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-            <ListItemButton>
-                
-                <ListItemText primary={text} />
-            </ListItemButton>
+            {['Minhas notas', 'Notas compartilhadas'].map((text, index) => (
+            <ListItem key={text} disablePadding >
+                <ListItemButton autoFocus={index === 0}>
+                    <ListItemText primary={text} />
+                </ListItemButton>
             </ListItem>
             ))}
         </List>
         <Divider />
         <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['Settings', 'Something', 'Logout'].map((text, index) => (
             <ListItem key={text} disablePadding>
             <ListItemButton>
             
