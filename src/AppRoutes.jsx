@@ -23,7 +23,6 @@ export default function AppRoutes(){
             return <Loading/>
         }
         if(!authenticated){
-            alert("Não autenticado")
             return <Navigate to="/login"/>
         }
         return children

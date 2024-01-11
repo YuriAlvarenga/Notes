@@ -11,7 +11,7 @@ import CardNoteNoPriority from "./card-no-priority"
 
 export default function NoteCreated(){
     
-   const { task } = useContext(NoteContext)
+   const { task, setEditingTaskId } = useContext(NoteContext)
 
     // abre menu dentro de card notas
 
@@ -22,19 +22,23 @@ export default function NoteCreated(){
             [taskId]: !prevState[taskId]
         }))
     }
+    // botao para editar notas passados para cards no priority e priority
+    const handleEditClick = (taskId) =>{
+        setEditingTaskId(taskId)
+    }
     
     
     return(
         <Box sx={{display:'flex', flexDirection:'column', width: '100%'}}>
             {task.length > 0 ? (
                 <Box>
-                    <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} />
+                    <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick}/>
                     
                     {task.some(task => task.priority) && (
                         <Divider sx={{ m: 4 }} />
                     )}
 
-                    <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} />
+                    <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
 
                         
                 </Box>

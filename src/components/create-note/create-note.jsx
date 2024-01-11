@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Typography from '@mui/material/Typography'
 import { Box,  Checkbox, Divider } from "@mui/material"
-import DeleteIcon from '@mui/icons-material/Delete'
+import CloseIcon from '@mui/icons-material/Close'
 import Button from '@mui/material/Button'
 import AddIcon from '@mui/icons-material/Add'
 import { useContext, useState } from 'react'
@@ -76,7 +76,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         InputLabelProps={{
           style: {
             fontSize: 12,
-          },
+          }
         }}
         sx={{background: '#FFF',  '& fieldset': { border:'none'}}}
         error={!!titleError}
@@ -104,7 +104,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         InputLabelProps={{
           style: {
             fontSize: 12, 
-          },
+          }
         }}
         error={!!noteError}
         helperText={noteError}
@@ -120,10 +120,10 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
             <Typography sx={{ fontSize: 10 }}>priority</Typography>
           }
         />
-        <Typography  onClick={props.handleCloseCard} sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}><DeleteIcon sx={{fontSize:16, color:'red'}}/>Cancel</Typography>
+        <Typography  onClick={props.handleCloseCard} sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}><CloseIcon sx={{fontSize:16, color:'red'}}/>Cancel</Typography>
       </Box>
       <CardActions sx={{display:'flex', justifyContent:'center'}}> 
-        <Button onClick={handleCreateNote} variant="contained" size="small" endIcon={<AddIcon/>} sx={{fontSize: 9, width: '100%', background: '#101F33'}}>Create Note</Button>
+        <Button onClick={handleCreateNote} variant="contained" size="small" endIcon={<AddIcon/>} sx={{fontSize: 9, width: '100%'}}>Create Note</Button>
       </CardActions>
     </Card>
   )

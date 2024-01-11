@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react"
 import api from '../services/api'
 import { AuthContext } from "./authContext"
-import { CurrencyRuble } from "@mui/icons-material"
+
 
 
 export const NoteContext = createContext()
@@ -10,7 +10,13 @@ export function NoteProvider({children}){
    
   const { token } = useContext(AuthContext)
   const [ task, setTask ] = useState([])
-  const [updatedTaskData, setUpdatedTaskData] = useState({})
+  //update nota
+ 
+  const [editedTitle, setEditedTitle] = useState('')
+  const [editedTask, setEditedTask] = useState('')
+  const [editedPriority, setEditPriority] = useState(false)
+  const [ editingTaskId, setEditingTaskId ] = useState(null)
+ 
      
   // retorna tarefas de cada usuário se houver o seu respectivo token
   //requisição para chamar as tasks (notas)
@@ -47,7 +53,6 @@ export function NoteProvider({children}){
         })
       if (response.status === 201){
         setTask((prevTasks) => [...prevTasks, response.data])
-        console.log('nota criada com sucesso')
       }
     }catch(error){
       if (error.response) {
@@ -64,15 +69,43 @@ export function NoteProvider({children}){
     try{
       await api.delete(`/task/${task_id}`)
       setTask((prevTasks) => prevTasks.filter(task => task.id !== task_id))
-      console.log('nota deletada com sucesso')
     }catch(error){
       console.log("erro ao deletar tarefa", task_id, error)
     }
   }
 
- 
+  //requisição para atualizar nota
+  const UpdateTask = async(taskId, editedTitle, editedTask, editedPriority) => {
+    try{
+      await api.put(`/task/${taskId}`, {
+        title: editedTitle,
+        task: editedTask,
+        priority: editedPriority
+      })
+      setTask((prevTasks) =>
+        prevTasks.map((note) =>
+        note.id === taskId
+            ? {
+                ...note,
+                title: editedTitle,
+                task: editedTask,
+                priority: editedPriority
+              }
+            : note
+        )
+      )
+
+    }catch (error) {
+      if (error.response) {
+          // O servidor respondeu com um código de status diferente de 2xx
+          console.error('Detalhes da resposta:', error.response.data)
+          console.error('Código de status HTTP:', error.response.status)
+      }
+    }
+  }
+  
   return(
-    <NoteContext.Provider value={{task, CreateTask, DeleteTask}}>
+    <NoteContext.Provider value={{task, CreateTask, DeleteTask, UpdateTask, editedTitle, setEditedTitle, editedTask, setEditedTask, editedPriority, setEditPriority, editingTaskId, setEditingTaskId }}>
       {children}
     </NoteContext.Provider>
   )
