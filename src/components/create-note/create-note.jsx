@@ -61,7 +61,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
   }
 
   return(
-    <Card sx={{ width: 200, display: 'flex', flexDirection:'column'}}>
+    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', backgroundColor: priority ? '#F4998D' : '#ADD8E6', color: priority ? '#FFF' : '#FFF'}}>
       <TextField 
         placeholder='Title'
         required
@@ -71,14 +71,14 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         InputProps={{
-          style:{ fontSize: 12 } 
+          style:{ fontSize: 12, color:'#FFF' } 
         }}
         InputLabelProps={{
           style: {
             fontSize: 12,
           }
         }}
-        sx={{background: '#FFF',  '& fieldset': { border:'none'}}}
+        sx={{'& fieldset': { border:'none'}}}
         error={!!titleError}
         helperText={titleError}
       />
@@ -97,9 +97,9 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         autoComplete="task"
         value={task}
         onChange={(e) => setTask(e.target.value)}
-        sx={{background: '#FFF',  '& fieldset': {border: 'none'}}}
+        sx={{'& fieldset': {border: 'none'}}}
         InputProps={{
-          style: { fontSize: 12 },
+          style: { fontSize: 12, color:'#FFF'  },
         }}
         InputLabelProps={{
           style: {

@@ -20,7 +20,7 @@ export default function Sidebar(props) { //handleItemClick  vindo do arquivo hom
     ]
   
     return (
-      <Box sx={{ overflow: 'auto' }}>
+      <Box sx={{ overflow: 'auto',  }}>
         <List>
           {itemsMenu.map(({ name, children }) => (
             <React.Fragment key={name}>

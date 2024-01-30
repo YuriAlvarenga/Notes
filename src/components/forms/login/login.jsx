@@ -13,6 +13,7 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from '../../../context/authContext'
+import Loading from '../../../context/loading'
 
 const defaultTheme = createTheme()
 
@@ -22,12 +23,11 @@ export default function SignIn() {
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
-   
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
     const navigate = useNavigate()
-    const { Login, emailNotFound, passwordNotFound } = useContext(AuthContext) // recebe as variáveis de auth em context
+    const { Login, emailNotFound, passwordNotFound, loading, setLoading } = useContext(AuthContext) // recebe as variáveis de auth em context
 
 
     //navigate para signup
@@ -64,13 +64,20 @@ export default function SignIn() {
     //Login 
     async function handleSubmit(event){
       event.preventDefault()
-    
       frontendValidation()
-    
       // Se chegou aqui, os campos foram preenchidos corretamente
-      Login(email, password)
-        
+      setLoading(true)
+      setTimeout(async () => {
+        try {
+          await Login(email, password)
+          setLoading(false)
+        } catch (error) {
+          console.log(error)
+          setLoading(false)
+        }
+      }, 1500)
     }
+    
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -122,9 +129,12 @@ export default function SignIn() {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, position:'relative' }}>
+              Sign In 
+              <Box sx={{display: 'flex', position:'absolute', right:'15px'}}>
+                {loading && <Loading/>}
+              </Box>
             </Button>
             <Grid container>
               <Grid item xs>

@@ -28,28 +28,25 @@ export default function NoteCreated(){
     }
     
     
-    return(
-        <Box sx={{display:'flex', flexDirection:'column', width: '100%'}}>
+    return (
+        <Box >
             {task.length > 0 ? (
-                <Box>
-                    <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick}/>
-                    
+                <>
+                    <Box sx={{ display: 'flex', flexDirection:"row" }}>
+                        <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
+                    </Box>
                     {task.some(task => task.priority) && (
                         <Divider sx={{ m: 4 }} />
                     )}
-
-                    <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
-
-                        
-                </Box>
-                ):(
-                <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                    <Box sx={{ display: 'flex' }}>
+                        <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
+                    </Box>
+                </>
+            ) : (
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography>Nothing to see</Typography>
                 </Box>
-            )}  
+            )}
         </Box>
-
-    )  
+    )
 }
-
-

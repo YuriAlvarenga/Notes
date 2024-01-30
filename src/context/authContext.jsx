@@ -29,7 +29,7 @@ export function AuthProvider({children}){
       if (recuperaToken) {
         setToken(recuperaToken)
       }
-       setLoading(false)
+      setLoading(false)
     }catch(error){
       console.error('error userEffect:', error)
       setLoading(false)
@@ -51,9 +51,13 @@ export function AuthProvider({children}){
       localStorage.setItem("user", JSON.stringify(user))
       localStorage.setItem("token", access_token)
       
-      
-      setUser(user)
-      navigate('/')
+      if(response.status === 200){
+        setUser(user)
+        //setLoading(true)
+        setTimeout(() =>{
+          navigate('/')
+        }, 2000)
+      }
       
       setEmailNotFound('')
       setPasswordNotFound('')
@@ -129,7 +133,7 @@ export function AuthProvider({children}){
 
 
   return(
-    <AuthContext.Provider value={{authenticated: !!user, user, token, loading, Login, emailNotFound, passwordNotFound, Logout, SignUp, emailFounded}}>
+    <AuthContext.Provider value={{authenticated: !!user, user, token, loading, setLoading, Login, emailNotFound, passwordNotFound, Logout, SignUp, emailFounded}}>
       {children}
     </AuthContext.Provider>
   )

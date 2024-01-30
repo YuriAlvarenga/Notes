@@ -65,7 +65,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
 
   return(
     
-    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', background: '#ffff00', justifyContent:'space-between', mr: 4,}}>
+    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', background: '#ffc26c', justifyContent:'space-between', mr: 4,}}>
         <TextField 
             placeholder='Edit the title here'
             required
@@ -74,7 +74,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
             name="editedTitle"
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
-            sx={{background: '#ffff00',  '& fieldset': { border:'none'}}}
+            sx={{'& fieldset': { border:'none'}}}
             InputProps={{
             style:{ fontSize: 12, } 
             }}
@@ -101,7 +101,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
             autoComplete="editedTask"
             value={editedTask}
             onChange={(e) => setEditedTask(e.target.value)}
-            sx={{background: '#ffff00',  '& fieldset': {border: 'none'}}}
+            sx={{ '& fieldset': {border: 'none'}}}
             InputProps={{
             style: { fontSize: 12, },
             }}
@@ -127,7 +127,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
       <CardActions sx={{display:'flex', justifyContent:'center'}}> 
         <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', width:'100%', justifyContent:'space-around'}}>
             <Typography onClick={() => handleSaveClick(task.id)}  sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}>
-                <DoneIcon  sx={{fontSize:16, color:'green', cursor: 'pointer'}}/>
+                <DoneIcon  sx={{fontSize:16, color:'#20B2AA', cursor: 'pointer'}}/>
                 Salvar
             </Typography>
             <Typography onClick={() => handleCancelUpdate(task.id)} sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}>

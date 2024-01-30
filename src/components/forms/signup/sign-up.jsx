@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from '../../../context/authContext'
+import Loading from '../../../context/loading'
 
 
 export default function SignUp() {
@@ -31,7 +32,7 @@ export default function SignUp() {
 
     const navigate = useNavigate()
 
-    const { SignUp, emailFounded } = useContext(AuthContext)
+    const { SignUp, emailFounded, loading, setLoading } = useContext(AuthContext)
 
     //navigate para /login
     const handleSignIn = () => {
@@ -77,7 +78,17 @@ export default function SignUp() {
         frontendValidation()
       
         // Se chegou aqui, os campos foram preenchidos corretamente
-        SignUp(name, email, password)
+       
+        setLoading(true)
+        setTimeout(async () => {
+          try {
+            await SignUp(name, email, password)
+            setLoading(false)
+          } catch (error) {
+            console.log(error)
+            setLoading(false)
+          }
+        }, 1500)
           
       }
       
@@ -141,7 +152,12 @@ export default function SignUp() {
                             />
                         </Grid>
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Sign Up</Button>
+                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, position:'relative' }}>
+                        Sign Up
+                        <Box sx={{display: 'flex', position:'absolute', right:'15px'}}>
+                            {loading && <Loading/>}
+                        </Box>
+                    </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Typography onClick={handleSignIn} sx={{color:'#005b8f', cursor:'pointer'}} variant="body2">
