@@ -26,7 +26,7 @@ export function NoteProvider({children}){
     const Tasks = async () => {
       if(token){
         try{
-          const response = await api.get('/task', { 
+          const response = await api.get('/notes', { 
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -44,7 +44,7 @@ export function NoteProvider({children}){
   const CreateTask = async (title, task, priority) => {
     
     try{
-      const response = await api.post('/task',{
+      const response = await api.post('/notes',{
         title,
         task,
         priority},
@@ -67,31 +67,31 @@ export function NoteProvider({children}){
 
   //requisição para deletar task (nota)
 
-  const DeleteTask = async(task_id) => {
+  const DeleteTask = async(note_id) => {
     try{
-      const response = await api.delete(`/task/${task_id}`)
-      setTask((prevTasks) => prevTasks.filter(task => task.id !== task_id))
+      const response = await api.delete(`/notes/${note_id}`)
+      setTask((prevNotes) => prevNotes.filter(note => note.id !== note_id))
     }catch(error){
       if (error.response) {
         // O servidor respondeu com um código de status diferente de 2xx
         console.error('Detalhes da resposta:', error.response.data)
         console.error('Código de status HTTP:', error.response.status)
       }
-      console.log("erro ao deletar tarefa", task_id, error)
+      console.log("erro ao deletar tarefa", note_id, error)
     }
   }
 
   //requisição para atualizar nota
-  const UpdateTask = async(taskId, editedTitle, editedTask, editedPriority) => {
+  const UpdateTask = async(noteId, editedTitle, editedTask, editedPriority) => {
     try{
-      await api.put(`/task/${taskId}`, {
+      await api.put(`/notes/${noteId}`, {
         title: editedTitle,
         task: editedTask,
         priority: editedPriority
       })
       setTask((prevTasks) =>
         prevTasks.map((note) =>
-        note.id === taskId
+        note.id === noteId
             ? {
                 ...note,
                 title: editedTitle,
@@ -111,27 +111,27 @@ export function NoteProvider({children}){
     }
   }
 
-  useEffect(() => {
-    const NoteDetails = async() => {
-      if(token){
-        try{
-          const response = await api.get('/profile', {
-            headers:{
-              Authorization : `Bearer ${token}`
-            }
-          })
-          setNoteDeatails(response.data)
-        }catch(error){
-          if (error.response) {
-            // O servidor respondeu com um código de status diferente de 2xx
-            console.error('Detalhes da resposta:', error.response.data)
-            console.error('Código de status HTTP:', error.response.status)
-          }
-        }
-      }
-    }
-    NoteDetails()
-  }, [token])
+  // useEffect(() => {
+  //   const NoteDetails = async() => {
+  //     if(token){
+  //       try{
+  //         const response = await api.get('/profile', {
+  //           headers:{
+  //             Authorization : `Bearer ${token}`
+  //           }
+  //         })
+  //         setNoteDeatails(response.data)
+  //       }catch(error){
+  //         if (error.response) {
+  //           // O servidor respondeu com um código de status diferente de 2xx
+  //           console.error('Detalhes da resposta:', error.response.data)
+  //           console.error('Código de status HTTP:', error.response.status)
+  //         }
+  //       }
+  //     }
+  //   }
+  //   NoteDetails()
+  // }, [token])
   
   return(
     <NoteContext.Provider value={{task, CreateTask, DeleteTask, UpdateTask, editedTitle, setEditedTitle, editedTask, setEditedTask, editedPriority, setEditPriority, editingTaskId, setEditingTaskId, noteDetails }}>

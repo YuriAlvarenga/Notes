@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 
 import Typography from '@mui/material/Typography'
-import { Box, Divider } from "@mui/material"
+import { Box, Divider} from "@mui/material"
 import { NoteContext } from "../../context/notesContext"
 import CardNotePriority from "./card-note-priority"
 import CardNoteNoPriority from "./card-no-priority"
@@ -29,24 +29,21 @@ export default function NoteCreated(){
     
     
     return (
-        <Box >
+        <React.Fragment>
             {task.length > 0 ? (
-                <>
-                    <Box sx={{ display: 'flex', flexDirection:"row" }}>
-                        <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
-                    </Box>
+                <React.Fragment>
+                    <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
                     {task.some(task => task.priority) && (
-                        <Divider sx={{ m: 4 }} />
+                        <Divider sx={{ m:2, width:'95%'}} />
                     )}
-                    <Box sx={{ display: 'flex' }}>
-                        <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
-                    </Box>
-                </>
+                    <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
+                </React.Fragment>
+       
             ) : (
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <Typography>Nothing to see</Typography>
                 </Box>
             )}
-        </Box>
+        </React.Fragment>
     )
 }

@@ -126,23 +126,14 @@ export default function SignIn() {
               error={!!(passwordError || passwordNotFound)}
               helperText={passwordError || passwordNotFound}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-              />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, position:'relative' }}>
               Sign In 
               <Box sx={{display: 'flex', position:'absolute', right:'15px'}}>
                 {loading && <Loading/>}
               </Box>
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2" sx={{color:'#005b8f'}}>
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
+            <Grid container sx={{ display:'flex', justifyContent:"flex-end" }}>
+              <Grid item >
                 <Typography onClick={handleSignUp} sx={{color:'#005b8f', cursor:'pointer'}} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Typography>

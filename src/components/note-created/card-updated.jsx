@@ -65,7 +65,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
 
   return(
     
-    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', background: '#ffc26c', justifyContent:'space-between', mr: 4,}}>
+    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', background: '#ffc26c', justifyContent:'space-between'}}>
         <TextField 
             placeholder='Edit the title here'
             required

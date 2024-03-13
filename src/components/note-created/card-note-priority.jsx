@@ -15,16 +15,15 @@ import UpdateNote from "./card-updated"
 
 export default function CardNotePriority(props){ //recebe menuState, handleMenuCard e handleEditClick de note-created.jsx  
 
-    const { task, DeleteTask, editingTaskId, noteDetails } = useContext(NoteContext)
+    const { task, DeleteTask, editingTaskId } = useContext(NoteContext)
 
 
     return(
-        <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', flexWrap: 'wrap', background:"orange"}}>
-            {task.filter(task => task.priority).map(task =>
-                editingTaskId === task.id ? (
+        <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', flexWrap: 'wrap'}}>
+            {task.filter(task => task.priority).map(task => editingTaskId === task.id ? (
                     <UpdateNote key={task.id} taskId={task.id} handleMenuCard={props.handleMenuCard} />
                 ) : (
-                    <Card key={task.id} sx={{ width: 200, height: 174, display: 'flex', flexDirection:'column', justifyContent:'space-between', backgroundColor: task.priority ? '#F4998D' : 'inherit', color: task.priority ? '#FFF' : '#000'}}>
+                    <Card key={task.id} sx={{ width: 200, height: 174, m:1, display: 'flex', flexDirection:'column', justifyContent:'space-between',  backgroundColor: task.priority ? '#F4998D' : 'inherit', color: task.priority ? '#FFF' : '#000'}}>
                         <Box sx={{overflow: 'auto', display:'flex', flexDirection:'column'}}>
                             <Typography sx={{ fontSize: 14, display:'flex', justifyContent:'center', width: '100%', mt: 1, mb: 0.5 }}>{task.title} </Typography>
                             <Divider sx={{backgroundColor: task.priority ? '#FFF' : '#000', width: '80%', m:0, mx: 'auto'}}/>

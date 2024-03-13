@@ -83,7 +83,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         helperText={titleError}
       />
 
-      <Divider sx={{ width:"80%", ml: 2, mt: 0, pt:0, mb: 1 }} />
+      <Divider sx={{ width:"80%", mt: 0, pt:0, mb: 1 }} />
 
       <TextField
         placeholder="Text here"

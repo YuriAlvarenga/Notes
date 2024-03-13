@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 
 import Typography from '@mui/material/Typography'
-import { Box, Divider } from "@mui/material"
+import { Box, Divider, Toolbar } from "@mui/material"
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -20,12 +20,12 @@ export default function CardNoteNoPriority(props){  //recebe menuState, handleMe
 
     return(
         
-        <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', flexWrap: 'wrap',background:'red'}}>
+        <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', flexWrap: 'wrap'}}>
             {task.filter(task => !task.priority).map(task =>
                editingTaskId === task.id ? (
                     <UpdateNote key={task.id} taskId={task.id} handleMenuCard={props.handleMenuCard} />
                 ) : (
-                    <Card key={task.id} sx={{ width: 200, height: 174, display: 'flex', flexDirection:'column', justifyContent:'space-between', backgroundColor: '#ADD8E6', color:'#FFF'}}>
+                    <Card key={task.id} sx={{ width: 200, height: 174, m:1, display: 'flex', flexDirection:'column', justifyContent:'space-between', backgroundColor: '#ADD8E6', color:'#FFF'}}>
                          <Box sx={{overflow: 'auto', display:'flex', flexDirection:'column'}}>
                             <Typography sx={{ fontSize: 14, display:'flex', justifyContent:'center', width: '100%', mt: 1, mb: 0.5 }}>{task.title} </Typography>
                             <Divider sx={{backgroundColor: '#FFF', width: '80%', m:0, mx: 'auto'}}/>
@@ -58,7 +58,8 @@ export default function CardNoteNoPriority(props){  //recebe menuState, handleMe
                         </CardActions>
                     </Card>
                 )
-            )}
+                )}
+                <Toolbar/>
         </Box>
     )
 }
