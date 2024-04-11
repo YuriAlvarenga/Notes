@@ -12,6 +12,7 @@ import SignIn from "./components/forms/login/login"
 
 import { AuthProvider, AuthContext } from "./context/authContext"
 import { NoteProvider } from "./context/notesContext"
+import { SharedProvider } from "./context/sharedContext"
 import Loading from "./context/loading"
 
 export default function AppRoutes(){
@@ -32,11 +33,13 @@ export default function AppRoutes(){
         <Router>
             <AuthProvider>
                 <NoteProvider>
-                    <Routes>
-                        <Route exact path="/login" element={<SignIn/>}/>
-                        <Route exact path="/signup" element={<SignUp/>}/>
-                        <Route exact path="/" element={<Private><Home/></Private>}/>
-                    </Routes>
+                    <SharedProvider>
+                        <Routes>
+                            <Route exact path="/login" element={<SignIn/>}/>
+                            <Route exact path="/signup" element={<SignUp/>}/>
+                            <Route exact path="/" element={<Private><Home/></Private>}/>
+                        </Routes>
+                    </SharedProvider>
                 </NoteProvider>
             </AuthProvider>
         </Router>

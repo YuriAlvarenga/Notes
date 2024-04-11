@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import Toolbar from '@mui/material/Toolbar'
-import { Box, Divider, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { Box, Divider, Typography } from "@mui/material"
 import CssBaseline from '@mui/material/CssBaseline'
-import TopBar from "../../components/top-bar/top-bar"
-import Sidebar from "../../components/sidebar/sidebar"
+import TopBar from "../../components/topbar/topbar"
 import ButtonCreateNote from "../../components/create-note/button-create-note"
 import CreateNote from "../../components/create-note/create-note"
 import NoteCreated from "../../components/note-created/note-created"
+import CardNoteSharedPriority from "../../components/notes-shared/notes-shared-priority"
 
 export default function Home() {
   //função que mostra o item que está sendo clicado através dos estados itemMenuLateral passado como props
@@ -25,37 +25,33 @@ export default function Home() {
     setShowCard(true)
   }
 
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Box sx={{ display: 'flex'}}>
+    <Box>
       <CssBaseline />
-      {!isMobile && <TopBar />}
-      
-      <Sidebar handleItemClick={handleItemClick} />
-      
-      <Box sx={{ marginTop: '64px', width:  !isMobile ? 'calc(100% - 260px)' : '100%'  }}>
-        <Toolbar />
+        <Toolbar/>
+        <TopBar handleItemClick={handleItemClick}/>
         {itemSideBar === 1 ? (
-          <Box >
-            {showCard ? <ButtonCreateNote handleOpenCard={handleOpenCard} /> : (<CreateNote handleCloseCard={handleCloseCard} />)}
-            <Divider sx={{ m: 4, width: "90%" }} />
+           <Box sx={{ display: 'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', m:3}}>
+           {showCard ? <ButtonCreateNote handleOpenCard={handleOpenCard} /> : (<CreateNote handleCloseCard={handleCloseCard} />)}
+           <Divider sx={{ m: 4, width: "90%" }} />
             <NoteCreated />
-          </Box>
+         </Box>
         ) : itemSideBar === 2 ? (
-          <Typography> Soon</Typography>
+          <CardNoteSharedPriority/>
         ) : itemSideBar === 3 ? (
           <Typography>settings</Typography>
         )
           : (
-            <Box >
+            <Box sx={{ display: 'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', m:3}}>
               {showCard ? <ButtonCreateNote handleOpenCard={handleOpenCard} /> : (<CreateNote handleCloseCard={handleCloseCard} />)}
               <Divider sx={{ m: 4, width: "90%" }} />
               <NoteCreated />
+              
             </Box>
           )}
-      </Box>
+      
+      <Toolbar />
     </Box>
   )
 }

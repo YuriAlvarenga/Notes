@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 
 import Typography from '@mui/material/Typography'
-import { Box, Divider} from "@mui/material"
+import { Box, Divider, useMediaQuery, useTheme} from "@mui/material"
 import { NoteContext } from "../../context/notesContext"
 import CardNotePriority from "./card-note-priority"
 import CardNoteNoPriority from "./card-no-priority"
@@ -26,24 +26,27 @@ export default function NoteCreated(){
     const handleEditClick = (taskId) =>{
         setEditingTaskId(taskId)
     }
-    
+
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
     
     return (
-        <React.Fragment>
+        <Box  sx={{fontFamily: 'cursive',  display: 'flex', flexDirection:'column', alignItems: isMobile ? 'center' : 'start', justifyContent:isMobile ? 'center' : 'start', width:'100%'}}>
             {task.length > 0 ? (
-                <React.Fragment>
-                    <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
-                    {task.some(task => task.priority) && (
-                        <Divider sx={{ m:2, width:'95%'}} />
-                    )}
-                    <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
-                </React.Fragment>
+                    <React.Fragment>
+                        <CardNotePriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
+                        {task.some(task => task.priority) && (
+                            <Divider sx={{ width:'100%'}} />
+                        )}
+                        <CardNoteNoPriority menuState={menuState} handleMenuCard={handleMenuCard} handleEditClick={handleEditClick} />
+                    </React.Fragment>
        
             ) : (
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                     <Typography>Nothing to see</Typography>
                 </Box>
             )}
-        </React.Fragment>
+       </Box>
+        
     )
 }

@@ -10,7 +10,7 @@ import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 
 
-export default function UpdateNote(props){ //props setEditingTaskId e handleMenuCard vindo de cards priority e no priority
+export default function UpdateNote({handleMenuCard, taskId}){ //props setEditingTaskId e handleMenuCard vindo de cards priority e no priority
 
   
     const { task, UpdateTask,  editedTitle, setEditedTitle, editedTask, setEditedTask, editedPriority, setEditPriority, setEditingTaskId } = useContext(NoteContext)
@@ -25,7 +25,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
         setEditedTitleError('')
         setEditedNoteError('')
         setEditPriority(false)
-        props.handleMenuCard(props.taskId)
+        handleMenuCard(taskId)
     }
     const frontEndValidationUpdate = () => {
         
@@ -52,20 +52,20 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
        
         const isValid = frontEndValidationUpdate()
         if(isValid) {
-            UpdateTask(props.taskId, editedTitle, editedTask, editedPriority )
+            UpdateTask(taskId, editedTitle, editedTask, editedPriority )
     
             // Limpa o estado de edição
             setEditingTaskId('')
             setEditedTitle('')
             setEditedTask('')
             setEditPriority(false)
-            props.handleMenuCard(props.taskId)
+            handleMenuCard(taskId)
         }
     }
 
   return(
     
-    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', background: '#ffc26c', justifyContent:'space-between'}}>
+    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', background: '#ffc26c', justifyContent:'space-between', m:1, fontFamily: 'cursive'}}>
         <TextField 
             placeholder='Edit the title here'
             required
@@ -76,7 +76,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
             onChange={(e) => setEditedTitle(e.target.value)}
             sx={{'& fieldset': { border:'none'}}}
             InputProps={{
-            style:{ fontSize: 12, } 
+            style:{ fontSize: 12, fontFamily: 'cursive'} 
             }}
             InputLabelProps={{
             style: {
@@ -103,7 +103,7 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
             onChange={(e) => setEditedTask(e.target.value)}
             sx={{ '& fieldset': {border: 'none'}}}
             InputProps={{
-            style: { fontSize: 12, },
+            style: { fontSize: 12, fontFamily: 'cursive' },
             }}
             InputLabelProps={{
             style: {
@@ -120,17 +120,17 @@ export default function UpdateNote(props){ //props setEditingTaskId e handleMenu
             <Checkbox size="small" checked={editedPriority}/>
           }
           label={
-            <Typography sx={{ fontSize: 10 }}>priority</Typography>
+            <Typography sx={{ fontSize: 10, fontFamily: 'cursive' }}>priority</Typography>
           }
         />
       </Box>
       <CardActions sx={{display:'flex', justifyContent:'center'}}> 
         <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', width:'100%', justifyContent:'space-around'}}>
-            <Typography onClick={() => handleSaveClick(task.id)}  sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}>
+            <Typography onClick={() => handleSaveClick(task.id)}  sx={{ fontSize: 10, fontFamily: 'cursive', display:'flex', alignItems:'center', cursor:'pointer' }}>
                 <DoneIcon  sx={{fontSize:16, color:'#20B2AA', cursor: 'pointer'}}/>
                 Salvar
             </Typography>
-            <Typography onClick={() => handleCancelUpdate(task.id)} sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}>
+            <Typography onClick={() => handleCancelUpdate(task.id)} sx={{ fontSize: 10, fontFamily: 'cursive', display:'flex', alignItems:'center', cursor:'pointer' }}>
                 <CloseIcon sx={{fontSize:16, color:'red'}}/>
                 Cancel
             </Typography>

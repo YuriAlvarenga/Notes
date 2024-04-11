@@ -61,7 +61,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
   }
 
   return(
-    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', backgroundColor: priority ? '#F4998D' : '#ADD8E6', color: priority ? '#FFF' : '#FFF'}}>
+    <Card sx={{ width: 200, display: 'flex', flexDirection:'column', alignItems:'center', backgroundColor: priority ? '#F4998D' : '#ADD8E6', color: priority ? '#FFF' : '#FFF', mt:2}}>
       <TextField 
         placeholder='Title'
         required
@@ -71,7 +71,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         InputProps={{
-          style:{ fontSize: 12, color:'#FFF' } 
+          style:{ fontSize: 12, color:'#FFF', fontFamily: 'cursive' } 
         }}
         InputLabelProps={{
           style: {
@@ -99,7 +99,7 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         onChange={(e) => setTask(e.target.value)}
         sx={{'& fieldset': {border: 'none'}}}
         InputProps={{
-          style: { fontSize: 12, color:'#FFF'  },
+          style: { fontSize: 12, color:'#FFF', fontFamily: 'cursive'  },
         }}
         InputLabelProps={{
           style: {
@@ -110,20 +110,20 @@ export default function CreateNote(props){ //props handleCloseCard vindo de home
         helperText={noteError}
 
       />
-      <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-around'}}>
+      <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between', width:'80%', fontFamily: 'cursive'}}>
         <FormControlLabel
           onChange={(e) => setPriority(e.target.checked)}
           control={
             <Checkbox size="small" checked={priority}/>
           }
           label={
-            <Typography sx={{ fontSize: 10 }}>priority</Typography>
+            <Typography sx={{ fontSize: 10, fontFamily: 'cursive' }}>priority</Typography>
           }
         />
-        <Typography  onClick={props.handleCloseCard} sx={{ fontSize: 10, display:'flex', alignItems:'center', cursor:'pointer' }}><CloseIcon sx={{fontSize:16, color:'red'}}/>Cancel</Typography>
+        <Typography  onClick={props.handleCloseCard} sx={{ fontSize: 10, fontFamily: 'cursive', display:'flex', alignItems:'center', cursor:'pointer' }}><CloseIcon sx={{fontSize:16, color:'red'}}/>Cancel</Typography>
       </Box>
       <CardActions sx={{display:'flex', justifyContent:'center'}}> 
-        <Button onClick={handleCreateNote} variant="contained" size="small" endIcon={<AddIcon/>} sx={{fontSize: 9, width: '100%'}}>Create Note</Button>
+        <Button onClick={handleCreateNote} variant="contained" size="small" endIcon={<AddIcon/>} sx={{fontSize: 9, width: '100%', fontFamily: 'cursive'}}>Create Note</Button>
       </CardActions>
     </Card>
   )
