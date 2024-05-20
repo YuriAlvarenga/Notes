@@ -11,8 +11,8 @@ export function NoteProvider({children}){
   const { token } = useContext(AuthContext)
   const [ task, setTask ] = useState([])
   const [ noteDetails, setNoteDeatails] = useState('')
+
   //update nota
- 
   const [editedTitle, setEditedTitle] = useState('')
   const [editedTask, setEditedTask] = useState('')
   const [editedPriority, setEditPriority] = useState(false)
@@ -91,8 +91,7 @@ export function NoteProvider({children}){
       })
       setTask((prevTasks) =>
         prevTasks.map((note) =>
-        note.id === noteId
-            ? {
+        note.id === noteId ? {
                 ...note,
                 title: editedTitle,
                 task: editedTask,

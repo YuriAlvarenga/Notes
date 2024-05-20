@@ -116,7 +116,7 @@ export default function SignUp() {
                                 autoComplete="Name"
                                 autoFocus
                                 value={name}
-                                onChange={(e) => setUserName(e.target.value)}
+                                onChange={(e) => setUserName(e.target.value.trim().toLowerCase())}
                                 error={!!userNameError}
                                 helperText={userNameError}
                             />

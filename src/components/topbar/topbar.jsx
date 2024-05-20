@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react"
-import { Box, List, ListItem, ListItemButton, ListItemText, Drawer, AppBar, IconButton, Toolbar, Typography, useMediaQuery, useTheme, Menu, MenuItem, Grid , Button} from "@mui/material"
+import { Box, List, ListItem, ListItemButton, ListItemText, Drawer, AppBar, IconButton, Toolbar, Typography, useMediaQuery, Menu, MenuItem, Grid , Button} from "@mui/material"
 import StickyNote2Icon from '@mui/icons-material/StickyNote2'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AuthContext } from '../../context/authContext'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import { SharedContext } from "../../context/sharedContext"
+import { SettingsContext } from "../../context/settingsContext"
 
 
 
@@ -12,12 +13,14 @@ import { SharedContext } from "../../context/sharedContext"
 export default function TopBar(props) {
 
     const { Logout, user } = useContext(AuthContext)
-    const { unreadNotesCount, setCountNotification } = useContext(SharedContext)
+    const { setCountNotification } = useContext(SharedContext)
 
     const markNotesAsRead = () => {
         setCountNotification(0)
       }
 
+    //verifica se está em mobile
+    const isMobile = useMediaQuery('(max-width:600px)')
 
     const [activeItem, setActiveItem] = useState(1)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -104,16 +107,22 @@ export default function TopBar(props) {
                         </Grid>
                         <StickyNote2Icon sx={{ color: '#ADD8E6' }}/>   
                         <Grid item xs />
-                            <CalendarMonthIcon sx={{ mr: 1, color: '#ADD8E6', fontSize: 18  }}/>
-                            <Grid sx={{ mr: 1, fontSize: 14 }}>
-                                {dataFormatada}
-                            </Grid>
+                        {!isMobile && (
+                            <>
+                                <CalendarMonthIcon sx={{ mr: 1, color: '#ADD8E6', fontSize: 18  }}/>
+                                <Grid sx={{ mr: 1, fontSize: 14 }}>
+                                    {dataFormatada}
+                                </Grid>
+                            </>
+                        )}
                         <Grid>
-                        <Button sx={{fontFamily: 'cursive', color:'#FFF', fontSize:12, mt: 0.2, cursor: 'pointer'}} id="basic-button" aria-controls={open ? 'basic-menu' : undefined}  onClick={handleOpenMenu}>
+                        <Button sx={{textTransform: 'capitalize', fontFamily: 'cursive', color:'#FFF', fontSize:14, mt: 0.2, cursor: 'pointer'}} id="basic-button" aria-controls={open ? 'basic-menu' : undefined}  onClick={handleOpenMenu}>
                             {user}
                         </Button>
-                        <Menu sx={{ml:1, cursor: 'pointer'}} id="basic-menu" anchorEl={showMenu}  open={Boolean(showMenu)} onClose={() => setShowMenu(null)}>
-                            <MenuItem sx={{fontSize:12, fontFamily: 'cursive'}} onClick={Logout}>Logout</MenuItem>       
+                        <Menu sx={{ml:0, cursor: 'pointer'}} id="basic-menu" anchorEl={showMenu}  open={Boolean(showMenu)} onClose={() => setShowMenu(null)}>
+                            <MenuItem  onClick={Logout}>
+                                <Typography sx={{textTransform: 'capitalize', fontFamily: 'cursive', fontSize:12, cursor: 'pointer'}}>Logout</Typography>
+                            </MenuItem>       
                         </Menu>     
                     </Grid>
                 </Grid>

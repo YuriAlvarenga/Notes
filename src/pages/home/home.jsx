@@ -7,6 +7,7 @@ import ButtonCreateNote from "../../components/create-note/button-create-note"
 import CreateNote from "../../components/create-note/create-note"
 import NoteCreated from "../../components/note-created/note-created"
 import CardNoteSharedPriority from "../../components/notes-shared/notes-shared-priority"
+import GeneralSettings from "../../components/forms/general-settings/settings"
 
 export default function Home() {
   //função que mostra o item que está sendo clicado através dos estados itemMenuLateral passado como props
@@ -40,7 +41,9 @@ export default function Home() {
         ) : itemSideBar === 2 ? (
           <CardNoteSharedPriority/>
         ) : itemSideBar === 3 ? (
-          <Typography>settings</Typography>
+            <Box sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+              <GeneralSettings/>
+            </Box>
         )
           : (
             <Box sx={{ display: 'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', m:3}}>

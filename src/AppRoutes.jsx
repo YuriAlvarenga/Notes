@@ -14,6 +14,7 @@ import { AuthProvider, AuthContext } from "./context/authContext"
 import { NoteProvider } from "./context/notesContext"
 import { SharedProvider } from "./context/sharedContext"
 import Loading from "./context/loading"
+import { SettingsProfile } from "./context/settingsContext"
 
 export default function AppRoutes(){
 
@@ -32,6 +33,7 @@ export default function AppRoutes(){
     return(
         <Router>
             <AuthProvider>
+                <SettingsProfile>
                 <NoteProvider>
                     <SharedProvider>
                         <Routes>
@@ -41,6 +43,7 @@ export default function AppRoutes(){
                         </Routes>
                     </SharedProvider>
                 </NoteProvider>
+                </SettingsProfile>
             </AuthProvider>
         </Router>
     )
